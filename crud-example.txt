@@ -1,0 +1,33 @@
+// C - CRIAR(created)
+app.get('/create',async (req,res)=>{
+  let create = await user.create({ 
+    name: "Joao", 
+    password: "abc" ,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  });
+  res.send('Usuário criado com sucesso');
+})
+// R - LER(read)
+app.get('/read', async (req,res)=>{
+  let read = await user.findAll({
+    raw:true
+  });
+  console.log(read);
+})
+// U - ATUALIZAR(updated)
+app.get('/update', async (req,res)=>{
+  let update = await user.findByPk(1).then((response)=>{
+    response.name='Thiagossss';
+    response.password='123abc';
+    response.save();
+  })
+});
+// D - DELETAR(deleted)
+app.get('/delete', async (req,res)=>{
+  user.destroy({
+    where: {
+      id:2
+    }
+  })
+});
